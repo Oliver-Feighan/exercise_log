@@ -14,6 +14,10 @@ import datetime
 
 connection = sqlite3.connect('log.db')
 
+print(type(connection))
+
+quit()
+
 cursor = connection.cursor()
 
 sqlite_insert_with_param = """INSERT INTO 'calisthenics' 
