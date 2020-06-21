@@ -11,13 +11,13 @@ wasn't necessary to read the file... Pycharm now highlights errors INSERT comman
 and this is fine for reading from database file. To write (maybe 
 other stuff?) a cursor needs to be made. eg:
 
-`connection = sqlite3.connection('db_file.db)`
+`connection = sqlite3.connection('db_file.db')`<br/>
 `cursor  = connection.cursor()`
 
 wild. Also need to commit these changes:
 
-`#do some commands`
-`cursor.execute(" ........ ")`
+`#do some commands`<br/>
+`cursor.execute(" ........ ")`<br/>
 `connection.commit()`
 
 
