@@ -37,13 +37,14 @@ class CalisthenicsData(object):
         self.rating   = params.get("rating")
 
 
-    def make_data_dict(self) -> dict:
-        data_dict = {}
-        data_dict["logdate"] = self.date
-        data_dict["pushups"] = self.pushups
-        data_dict["pullups"] = self.pullups
-        data_dict["squats"] = self.squats
-        data_dict["comments"] = self.comments
-        data_dict["rating"] = self.rating
+    def make_data_tuple(self) -> tuple:
+        data_tuple = (
+        self.date,
+        self.pushups,
+        self.pullups,
+        self.squats,
+        self.comments,
+        self.rating,
+        )
 
-        return data_dict
+        return data_tuple
