@@ -10,19 +10,19 @@ PRIMARY KEY (LOGDATE));
 """
 
 import sqlite3
+import datetime
 
-conn = sqlite3.connect('log.db')
+connection = sqlite3.connect('log.db')
 
-cur = conn.cursor()
-cur.execute("SELECT * FROM calisthenics")
+cursor = connection.cursor()
 
 sqlite_insert_with_param = """INSERT INTO 'calisthenics' 
-('LOGDATE', 'PUSHUPS', 'PULLUPS') values (?, ?, ?, ?, ? ,?)"""
+("LOGDATE", "PUSHUPS", "PULLUPS", "SQUATS", "COMMENTS", "RATING") values (?, ?, ?, ?, ? ,?)"""
 
-cur.execute("""INSERT INTO calisthenics values (?, ?, ?, ?, ? ,?)""", )
+data = (datetime.datetime.now(), 0, 0, 0, "went for swim", "NULL")
 
-rows = cur.fetchall()
+cursor.execute("""INSERT INTO calisthenics values (?, ?, ?, ?, ? ,?)""", data)
 
-for row in rows:
-	print(row)
+connection.commit()
 
+connection.close()
