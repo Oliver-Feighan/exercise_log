@@ -18,7 +18,7 @@ class calisthenics(Table):
         cursor = open_connection.cursor()
 
         sqlite_insert_str = \
-            """INSERT INTO %s values (?, ?, ?, ?, ? ,?)""" % self.table_name
+            """INSERT INTO %s values""" % self.table_name
 
         cursor.execute(sqlite_insert_str, self.write_data)
 
