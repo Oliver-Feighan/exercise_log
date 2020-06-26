@@ -13,21 +13,33 @@ class TableButton(QPushButton):
 class MasterWindow(QMainWindow):
     app = QApplication([])
 
+    def picture(self):
+        picture_label = QLabel()
+        pixmap = QPixmap('/Users/of15641/Documents/OwnProjects/exercise_log/log_image.png')
+        pixmap_resized = pixmap.scaled(100, 100, Qt.KeepAspectRatio)
+        picture_label.setPixmap(pixmap_resized)
+
+        self.layout.addWidget(picture_label)
+
     def table_buttons(self):
-        self.layout.addWidget(QLabel("Input tables:"), alignment=(Qt.AlignLeft | Qt.AlignCenter))
+        self.layout.addWidget(QLabel("Input tables:"))
 
         self.run_button = TableButton({"text" : "run"})
         self.calisthenics_button = TableButton({"text": "calisthenics"})
 
-        self.layout.addWidget(self.run_button, alignment=(Qt.AlignLeft | Qt.AlignJustify))
-        self.layout.addWidget(self.calisthenics_button, alignment=(Qt.AlignLeft | Qt.AlignJustify))
+        self.layout.addWidget(self.run_button)
+        self.layout.addWidget(self.calisthenics_button)
 
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Exercise Log")
-        self.layout = QVBoxLayout()
+        self.layout = QGridLayout()
 
         self.table_buttons()
+        self.picture()
+
+        self.mainmenu = self.menuBar()
+
 
         self.win = QWidget()
 
@@ -36,5 +48,6 @@ class MasterWindow(QMainWindow):
                              param.master_window["y"],
                              param.master_window["width"],
                              param.master_window["height"])
+
         self.win.show()
         self.app.exec_()
