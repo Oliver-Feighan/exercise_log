@@ -1,12 +1,9 @@
-from PyQt5.QtWidgets import QApplication, QLabel
+from PyQt5.QtWidgets import QApplication
+import gui.master_window
+import sys
 
-app = QApplication([])
+window = gui.master_window.MasterWindow()
 
-
-
-
-
-app.exec_()
 
 
 
