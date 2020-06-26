@@ -20,17 +20,3 @@ class Runs(Table):
         assert(type(self.write_data[2]) == int)
         assert(type(self.write_data[3]) == str)
         assert(type(self.write_data[4]) == float)
-
-
-    def write_to_runs(self):
-        """
-        :return: no return, just inserts into database
-        """
-        cursor = self.connection.cursor()
-
-        sqlite_insert_str = \
-            """INSERT INTO %s values (?, ?, ?, ?, ?)""" % self.table_name
-
-        cursor.execute(sqlite_insert_str, self.write_data)
-
-        self.connection.commit()

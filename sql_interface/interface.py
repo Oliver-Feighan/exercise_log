@@ -36,6 +36,23 @@ class Table:
     def close_connection(self):
         self.connection.close()
 
+    def write_to_table(self):
+        """
+        :return: no return, just inserts into database
+        """
+        open_connection = self.connection()
+
+        cursor = open_connection.cursor()
+
+        sqlite_insert_str = \
+            """INSERT INTO %s values""" % self.table_name
+
+        cursor.execute(sqlite_insert_str, self.write_data)
+
+        open_connection.commit()
+
+        open_connection.close()
+
 
 
 
