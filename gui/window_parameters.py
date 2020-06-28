@@ -8,4 +8,11 @@ days = ["Monday"
         ,"Friday"
         ,"Saturday"
         ,"Sunday"
-]
+        ]
+
+run_inputs = ["Logdate"
+              ,"Distance"
+              ,"Elavation"
+              ,"Comments"
+              ,"Rating"
+              ]

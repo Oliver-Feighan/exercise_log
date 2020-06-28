@@ -10,9 +10,41 @@ class TableButton(QPushButton):
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.toggle()
 
+
+class TableWindow(QWindow):
+    def __init__(self, param):
+        super().__init__()
+        self.tablelayout = QGridLayout()
+        self.tablewin = QWidget()
+        self.header = QLabel()
+        self.header.setText(param.get("table"))
+        self.tablewin.setFixedSize(300, 300)
+        self.tablelayout.addWidget(self.header, 0, 0)
+
+    def clicked(self):
+        self.tablewin.show()
+
+class RunWindow(TableWindow):
+    def __init__(self, param_dict):
+        super().__init__(param_dict)
+        for count, run_input in enumerate(param.run_inputs):
+            label_i = QLabel()
+            label_i.setText(run_input)
+            self.tablelayout.addWidget(label_i, count + 1, 0)
+
+            input_i = QTextEdit()
+            self.tablelayout.addWidget(input_i, count + 1 ,1)
+
+
+
+        self.tablewin.setLayout(self.tablelayout)
+
+
 class MasterWindow(QMainWindow):
     app = QApplication([])
     app.setWindowIcon(QIcon('/Users/of15641/Documents/OwnProjects/exercise_log/run_image.png'))
+    app.setApplicationName("Exercise log")
+    app.setApplicationDisplayName("Exercise log")
 
 
     def picture(self):
@@ -26,7 +58,10 @@ class MasterWindow(QMainWindow):
     def table_buttons(self, row : int, column : int):
         self.layout.addWidget(QLabel("Input tables:"), row, column)
 
-        self.run_button = TableButton({"text" : "run"})
+        self.run_button = TableButton({"text" : "runs"})
+        self.run_window = RunWindow({"table" : "runs"})
+
+        self.run_button.clicked.connect(self.run_window.clicked)
         self.calisthenics_button = TableButton({"text": "calisthenics"})
 
         self.layout.addWidget(self.run_button, row+1, column)
