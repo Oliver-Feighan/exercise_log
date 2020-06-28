@@ -12,42 +12,62 @@ class TableButton(QPushButton):
 
 class MasterWindow(QMainWindow):
     app = QApplication([])
+    app.setWindowIcon(QIcon('/Users/of15641/Documents/OwnProjects/exercise_log/run_image.png'))
+
 
     def picture(self):
         picture_label = QLabel()
-        pixmap = QPixmap('/Users/of15641/Documents/OwnProjects/exercise_log/log_image.png')
+        pixmap = QPixmap('/Users/of15641/Documents/OwnProjects/exercise_log/run_image.png')
         pixmap_resized = pixmap.scaled(100, 100, Qt.KeepAspectRatio)
         picture_label.setPixmap(pixmap_resized)
 
         self.layout.addWidget(picture_label)
 
-    def table_buttons(self):
-        self.layout.addWidget(QLabel("Input tables:"))
+    def table_buttons(self, row : int, column : int):
+        self.layout.addWidget(QLabel("Input tables:"), row, column)
 
         self.run_button = TableButton({"text" : "run"})
         self.calisthenics_button = TableButton({"text": "calisthenics"})
 
-        self.layout.addWidget(self.run_button)
-        self.layout.addWidget(self.calisthenics_button)
+        self.layout.addWidget(self.run_button, row+1, column)
+        self.layout.addWidget(self.calisthenics_button, row+2, column)
+
+    def weekly_data_setup(self):
+        self.weekly_data = QLabel()
+        weekly_text = "this will be the weekly data \n"
+        for day in param.days:
+            weekly_text += "%s: \n \n" % day
+        self.weekly_data.setText(weekly_text)
+        self.weekly_data.setMinimumSize(70, 45)
+        self.weekly_data.setStyleSheet("background-color: white")
+        self.layout.addWidget(self.weekly_data, 1, 2, 8, 1)
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Exercise Log")
-        self.layout = QGridLayout()
-
-        self.table_buttons()
-        self.picture()
-
-        self.mainmenu = self.menuBar()
-
-
         self.win = QWidget()
-
+        self.win.setWindowTitle("Exercise Log")
+        self.layout = QGridLayout()
         self.win.setLayout(self.layout)
-        self.win.setGeometry(param.master_window["x"],
-                             param.master_window["y"],
-                             param.master_window["width"],
-                             param.master_window["height"])
+
+        self.text = QLabel()
+        self.text.setText("Exercise log")
+        self.text.setStyleSheet("font: 20pt")
+
+        self.layout.addWidget(self.text, 0, 0)
+
+        self.table_buttons(1, 0)
+
+        self.weekly_data_setup()
+
+
+        """
+        self.toolbar = QToolBar()
+        self.toolbar.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.layout.addWidget(self.toolbar, 1, 0)
+        self.toolbar.addAction("add")
+        self.toolbar.addAction("read")
+        """
+        self.win.setFixedSize(param.master_window["width"], param.master_window["height"])
 
         self.win.show()
         self.app.exec_()
