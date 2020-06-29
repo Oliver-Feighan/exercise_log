@@ -30,28 +30,25 @@ class Table:
 
     def __init__(self, params):
         self.file = params.get("file", "log.db")
-        self.connection = self.open_connection()
-        self.write_data = params.get("data")
 
     def close_connection(self):
         self.connection.close()
 
-    def write_to_table(self):
-        """
-        :return: no return, just inserts into database
-        """
-        open_connection = self.connection()
+    def write_to_table(self, write_data):
+
+        open_connection = self.open_connection()
 
         cursor = open_connection.cursor()
 
         sqlite_insert_str = \
             """INSERT INTO %s values""" % self.table_name
 
-        cursor.execute(sqlite_insert_str, self.write_data)
+        cursor.execute(sqlite_insert_str, write_data)
 
         open_connection.commit()
 
         open_connection.close()
+
 
 
 

@@ -1,4 +1,3 @@
-import sqlite3
 from sql_interface.interface import Table
 import datetime
 
@@ -10,13 +9,20 @@ class Runs(Table):
     """
     table_name = "runs"
 
-    def run_data_check(self):
+    def run_data_check(self, write_data) -> bool:
         """
 
         :return: exits program if
         """
-        assert(type(self.write_data[0]) == type(datetime.datetime.now().date()))
-        assert(type(self.write_data[1]) == str)
-        assert(type(self.write_data[2]) == int)
-        assert(type(self.write_data[3]) == str)
-        assert(type(self.write_data[4]) == float)
+        if \
+        type(write_data[0]) != type(datetime.datetime.now().date()) or \
+        type(write_data[1]) != str or \
+        type(write_data[2]) != int or \
+        type(write_data[3]) != str or \
+        type(write_data[4]) != float:
+
+            return False
+
+        else:
+
+            return True

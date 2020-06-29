@@ -4,7 +4,10 @@ from PyQt5.QtGui import *
 import gui.utils
 
 class RunWindow(gui.utils.TableWindow):
-    def __init__(self, param_dict):
+    def add_to_table(self, run_table):
+        print("add")
+
+    def __init__(self, param_dict, run_table):
         super().__init__(param_dict)
         #LOGDATE
         logdate_widget = QWidget()
@@ -107,9 +110,8 @@ class RunWindow(gui.utils.TableWindow):
         input_button.setText("ADD")
         input_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         input_button.toggle()
+        input_button.clicked.connect(lambda : self.add_to_table(run_table))
 
         self.tablelayout.addWidget(input_button, 6, 0, 1, 2)
-
-
 
         self.tablewin.setLayout(self.tablelayout)

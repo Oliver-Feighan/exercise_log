@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import gui.window_parameters as param
 import gui.run_input
+import sql_interface.runs
 
 class TableButton(QPushButton):
     def __init__(self, param):
@@ -28,13 +29,14 @@ class MasterWindow(QMainWindow):
 
         self.layout.addWidget(picture_label)
 
-    def table_buttons(self, row : int, column : int):
+    def table_buttons(self, row : int, column : int, run_table : sql_interface.runs.Runs):
         self.layout.addWidget(QLabel("Input tables:"), row, column)
 
         self.run_button = TableButton({"text" : "Runs"})
-        self.run_window = gui.run_input.RunWindow({"table" : "Runs"})
-
+        self.run_window = gui.run_input.RunWindow({"table" : "Runs"}, run_table)
         self.run_button.clicked.connect(self.run_window.clicked)
+
+
         self.calisthenics_button = TableButton({"text": "Calisthenics"})
 
         self.layout.addWidget(self.run_button, row+1, column)
@@ -50,7 +52,7 @@ class MasterWindow(QMainWindow):
         self.weekly_data.setStyleSheet("background-color: white")
         self.layout.addWidget(self.weekly_data, 1, 2, 8, 1)
 
-    def __init__(self):
+    def __init__(self, run_table):
         super().__init__()
         self.win = QWidget()
         self.win.setWindowTitle("Exercise Log")
@@ -63,10 +65,9 @@ class MasterWindow(QMainWindow):
 
         self.layout.addWidget(self.text, 0, 0)
 
-        self.table_buttons(1, 0)
+        self.table_buttons(1, 0, run_table)
 
         self.weekly_data_setup()
-
 
         """
         self.toolbar = QToolBar()
