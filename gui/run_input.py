@@ -4,7 +4,11 @@ from PyQt5.QtGui import *
 import gui.utils
 
 class RunWindow(gui.utils.TableWindow):
-    def add_to_table(self, run_table):
+    def add_to_table(self, run_table) :
+
+        self.day.get
+
+
         print("add")
 
     def __init__(self, param_dict, run_table):
@@ -13,16 +17,16 @@ class RunWindow(gui.utils.TableWindow):
         logdate_widget = QWidget()
         logdate_sublayout = QHBoxLayout()
 
-        day = QComboBox()
-        month = QComboBox()
-        year = QComboBox()
-        day.addItems([str(day) for day in range(1, 32)])
-        month.addItems([str(month) for month in range(1, 13)])
-        year.addItems([str(year) for year  in range(2020, 2051)])
+        self.day = QComboBox()
+        self.month = QComboBox()
+        self.year = QComboBox()
+        self.day.addItems([str(day) for day in range(1, 32)])
+        self.month.addItems([str(month) for month in range(1, 13)])
+        self.year.addItems([str(year) for year  in range(2020, 2051)])
 
-        logdate_sublayout.addWidget(day, alignment=Qt.AlignCenter)
-        logdate_sublayout.addWidget(month, alignment=Qt.AlignCenter)
-        logdate_sublayout.addWidget(year, alignment=Qt.AlignCenter)
+        logdate_sublayout.addWidget(self.day, alignment=Qt.AlignCenter)
+        logdate_sublayout.addWidget(self.month, alignment=Qt.AlignCenter)
+        logdate_sublayout.addWidget(self.year, alignment=Qt.AlignCenter)
 
         logdate_widget.setLayout(logdate_sublayout)
 
@@ -35,13 +39,13 @@ class RunWindow(gui.utils.TableWindow):
         distance_widget = QWidget()
         distance_sublayout = QHBoxLayout()
 
-        distance = QLineEdit()
-        distance.setValidator(QDoubleValidator())
+        self.distance = QLineEdit()
+        self.distance.setValidator(QDoubleValidator())
 
         unit = QComboBox()
         unit.addItems(["km", "miles"])
 
-        distance_sublayout.addWidget(distance, alignment=Qt.AlignCenter)
+        distance_sublayout.addWidget(self.distance, alignment=Qt.AlignCenter)
         distance_sublayout.addWidget(unit, alignment=Qt.AlignCenter)
 
         distance_widget.setLayout(distance_sublayout)
@@ -56,16 +60,16 @@ class RunWindow(gui.utils.TableWindow):
         elavation_widget = QWidget()
         elavation_sublayout = QHBoxLayout()
 
-        elavation_box = QSpinBox()
-        elavation_box.setMinimum(0)
-        elavation_box.setMaximum(500)
-        elavation_box.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
-        elavation_box.setMinimumSize(70, 10)
+        self.elavation_box = QSpinBox()
+        self.elavation_box.setMinimum(0)
+        self.elavation_box.setMaximum(500)
+        self.elavation_box.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
+        self.elavation_box.setMinimumSize(70, 10)
 
         unit_label = QLabel()
         unit_label.setText("metres")
 
-        elavation_sublayout.addWidget(elavation_box, alignment=Qt.AlignCenter)
+        elavation_sublayout.addWidget(self.elavation_box, alignment=Qt.AlignCenter)
         elavation_sublayout.addWidget(unit_label, alignment=Qt.AlignCenter)
 
         elavation_widget.setLayout(elavation_sublayout)
@@ -78,28 +82,28 @@ class RunWindow(gui.utils.TableWindow):
 
 
         #COMMENTS
-        comment_box = QLineEdit()
-        comment_box.setMinimumSize(100, 50)
+        self.comment_box = QLineEdit()
+        self.comment_box.setMinimumSize(100, 50)
         comment_label = QLabel()
         comment_label.setText("Comments")
 
         self.tablelayout.addWidget(comment_label, 4, 0)
-        self.tablelayout.addWidget(comment_box, 4, 1)
+        self.tablelayout.addWidget(self.comment_box, 4, 1)
 
 
         #RATING
         rating_widget = QWidget()
         rating_sublayout = QHBoxLayout()
 
-        rating_box = QDoubleSpinBox()
-        rating_box.setDecimals(1)
-        rating_box.setSingleStep(0.5)
-        rating_box.setMinimum(0.0)
-        rating_box.setMaximum(10.0)
+        self.rating_box = QDoubleSpinBox()
+        self.rating_box.setDecimals(1)
+        self.rating_box.setSingleStep(0.5)
+        self.rating_box.setMinimum(0.0)
+        self.rating_box.setMaximum(10.0)
         rating_label = QLabel()
         rating_label.setText("Rating")
 
-        rating_sublayout.addWidget(rating_box, alignment=Qt.AlignCenter)
+        rating_sublayout.addWidget(self.rating_box, alignment=Qt.AlignCenter)
         rating_widget.setLayout(rating_sublayout)
 
         self.tablelayout.addWidget(rating_label, 5, 0)
