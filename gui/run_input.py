@@ -2,21 +2,41 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import gui.utils
+import sql_interface.runs
+import datetime
 
 class RunWindow(gui.utils.TableWindow):
-    def add_to_table(self, run_table) :
+    def add_to_table(self, run_table: sql_interface.runs) :
 
-        self.day.get
+        date = self.logdate_widget.selectedDate().toString("yyyy-MM-dd")
+        date = datetime.datetime.strptime(date, "%Y-%m-%d")
+        distance = self.distance.text()
+        elavation = self.elavation_box.text()
+        comment = self.comment_box.text()
+        rating = self.rating_box.text()
 
+        write_data = (date, float(distance), int(elavation), comment, float(rating))
 
-        print("add")
+        data_check = run_table.run_data_check(write_data)
+
+        #run_table.write_to_table(write_data)\
+        print("correct data types") if data_check else \
+            print("data type error")
+
 
     def __init__(self, param_dict, run_table):
         super().__init__(param_dict)
         #LOGDATE
-        logdate_widget = QWidget()
-        logdate_sublayout = QHBoxLayout()
+        self.logdate_widget = QCalendarWidget()
 
+        date_label = QLabel()
+        date_label.setText("Date")
+        self.tablelayout.addWidget(date_label, 1, 0)
+        self.tablelayout.addWidget(self.logdate_widget, 1, 1)
+
+        '''
+        logdate_sublayout = QHBoxLayout()
+        
         self.day = QComboBox()
         self.month = QComboBox()
         self.year = QComboBox()
@@ -30,10 +50,8 @@ class RunWindow(gui.utils.TableWindow):
 
         logdate_widget.setLayout(logdate_sublayout)
 
-        date_label = QLabel()
-        date_label.setText("Date")
-        self.tablelayout.addWidget(date_label, 1, 0)
         self.tablelayout.addWidget(logdate_widget, 1, 1)
+        '''
 
         #DISTANCE
         distance_widget = QWidget()
