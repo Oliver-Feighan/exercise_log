@@ -34,22 +34,6 @@ class Table:
     def close_connection(self):
         self.connection.close()
 
-    def write_to_table(self, write_data):
-
-        open_connection = self.open_connection()
-
-        cursor = open_connection.cursor()
-
-        sqlite_insert_str = \
-            """INSERT INTO %s values""" % self.table_name
-
-        cursor.execute(sqlite_insert_str, write_data)
-
-        open_connection.commit()
-
-        open_connection.close()
-
-
 
 
 

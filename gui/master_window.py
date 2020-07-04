@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import gui.window_parameters as param
 import gui.run_input
+import gui.calisthenic_window
 import sql_interface.runs
 
 class TableButton(QPushButton):
@@ -11,7 +12,6 @@ class TableButton(QPushButton):
         self.setText("%s" % param.get("text"))
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.toggle()
-
 
 
 class MasterWindow(QMainWindow):
@@ -29,6 +29,8 @@ class MasterWindow(QMainWindow):
 
         self.layout.addWidget(picture_label)
 
+
+
     def table_buttons(self, row : int, column : int, run_table : sql_interface.runs.Runs):
         self.layout.addWidget(QLabel("Input tables:"), row, column)
 
@@ -38,9 +40,14 @@ class MasterWindow(QMainWindow):
 
 
         self.calisthenics_button = TableButton({"text": "Calisthenics"})
+        self.calisthenics_window = gui.calisthenic_window.CalWindow({"table" : "Calisthenics"}, run_table)
+        self.calisthenics_button.clicked.connect(self.calisthenics_window.clicked)
+
 
         self.layout.addWidget(self.run_button, row+1, column)
         self.layout.addWidget(self.calisthenics_button, row+2, column)
+
+
 
     def weekly_data_setup(self):
         self.weekly_data = QLabel()
@@ -51,6 +58,8 @@ class MasterWindow(QMainWindow):
         self.weekly_data.setMinimumSize(70, 45)
         self.weekly_data.setStyleSheet("background-color: white")
         self.layout.addWidget(self.weekly_data, 1, 2, 8, 1)
+
+
 
     def __init__(self, run_table):
         super().__init__()

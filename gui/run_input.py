@@ -10,6 +10,7 @@ class RunWindow(gui.utils.TableWindow):
 
         date = self.logdate_widget.selectedDate().toString("yyyy-MM-dd")
         date = datetime.datetime.strptime(date, "%Y-%m-%d")
+        date = date.date()
         distance = self.distance.text()
         elavation = self.elavation_box.text()
         comment = self.comment_box.text()
@@ -19,10 +20,8 @@ class RunWindow(gui.utils.TableWindow):
 
         data_check = run_table.run_data_check(write_data)
 
-        #run_table.write_to_table(write_data)\
-        print("correct data types") if data_check else \
+        run_table.write_to_table(write_data) if data_check else \
             print("data type error")
-
 
     def __init__(self, param_dict, run_table):
         super().__init__(param_dict)
@@ -33,25 +32,6 @@ class RunWindow(gui.utils.TableWindow):
         date_label.setText("Date")
         self.tablelayout.addWidget(date_label, 1, 0)
         self.tablelayout.addWidget(self.logdate_widget, 1, 1)
-
-        '''
-        logdate_sublayout = QHBoxLayout()
-        
-        self.day = QComboBox()
-        self.month = QComboBox()
-        self.year = QComboBox()
-        self.day.addItems([str(day) for day in range(1, 32)])
-        self.month.addItems([str(month) for month in range(1, 13)])
-        self.year.addItems([str(year) for year  in range(2020, 2051)])
-
-        logdate_sublayout.addWidget(self.day, alignment=Qt.AlignCenter)
-        logdate_sublayout.addWidget(self.month, alignment=Qt.AlignCenter)
-        logdate_sublayout.addWidget(self.year, alignment=Qt.AlignCenter)
-
-        logdate_widget.setLayout(logdate_sublayout)
-
-        self.tablelayout.addWidget(logdate_widget, 1, 1)
-        '''
 
         #DISTANCE
         distance_widget = QWidget()
@@ -128,12 +108,12 @@ class RunWindow(gui.utils.TableWindow):
         self.tablelayout.addWidget(rating_widget, 5, 1)
 
         #ADD
-        input_button = QPushButton()
-        input_button.setText("ADD")
-        input_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        input_button.toggle()
-        input_button.clicked.connect(lambda : self.add_to_table(run_table))
+        add_button = QPushButton()
+        add_button.setText("ADD")
+        add_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        add_button.toggle()
+        add_button.clicked.connect(lambda : self.add_to_table(run_table))
 
-        self.tablelayout.addWidget(input_button, 6, 0, 1, 2)
+        self.tablelayout.addWidget(add_button, 6, 0, 1, 2)
 
         self.tablewin.setLayout(self.tablelayout)
