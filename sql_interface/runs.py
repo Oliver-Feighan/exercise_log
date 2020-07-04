@@ -45,7 +45,7 @@ class Runs(Table):
         sqlite_insert_str = \
             """INSERT INTO runs values (?, ?, ?, ?, ?)"""
 
-        cursor.execute(sqlite_insert_str, (write_data))
+        cursor.execute(sqlite_insert_str, write_data)
 
         open_connection.commit()
 

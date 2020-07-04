@@ -2,28 +2,33 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import gui.utils
-import sql_interface.runs
+
 import datetime
 
 
 class CalWindow(gui.utils.TableWindow):
-    def add_to_table(self, run_table: sql_interface.runs):
+
+    def add_to_table(self, cali_table):
         date = self.logdate_widget.selectedDate().toString("yyyy-MM-dd")
         date = datetime.datetime.strptime(date, "%Y-%m-%d")
         date = date.date()
-        distance = self.distance.text()
-        elavation = self.elavation_box.text()
+        pushups = self.pushups_slider.value()
+        pullups = self.pullups_slider.value()
+        squats = self.squats_slider.value()
+
         comment = self.comment_box.text()
         rating = self.rating_box.text()
 
-        write_data = (date, float(distance), int(elavation), comment, float(rating))
+        write_data = (date, pushups, pullups, squats, comment, float(rating))
 
-        data_check = run_table.run_data_check(write_data)
+        data_check = cali_table.cali_data_check(write_data)
 
-        run_table.write_to_table(write_data) if data_check else \
-            print("data type error")
+        if data_check:
+            cali_table.write_to_table(write_data)
+            self.tablelayout.addWidget(QLabel("added to database successfully"), 6, 0, 1, 2)
 
-    def __init__(self, param_dict, run_table):
+
+    def __init__(self, param_dict, cali_table):
         super().__init__(param_dict)
         # LOGDATE
         self.logdate_widget = QCalendarWidget()
@@ -125,7 +130,7 @@ class CalWindow(gui.utils.TableWindow):
         add_button.setText("ADD")
         add_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         add_button.toggle()
-        add_button.clicked.connect(lambda: self.add_to_table(run_table))
+        add_button.clicked.connect(lambda: self.add_to_table(cali_table))
 
         self.tablelayout.addWidget(add_button, 5, 0, 1, 2)
 

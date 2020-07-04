@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import gui.utils
 import sql_interface.runs
+import gui.utils
 import datetime
 
 class RunWindow(gui.utils.TableWindow):
@@ -20,11 +21,14 @@ class RunWindow(gui.utils.TableWindow):
 
         data_check = run_table.run_data_check(write_data)
 
-        run_table.write_to_table(write_data) if data_check else \
-            print("data type error")
+        if data_check:
+            run_table.write_to_table(write_data)
+            self.tablelayout.addWidget(QLabel("added to database successfully"), 7, 0, 1, 2)
 
     def __init__(self, param_dict, run_table):
         super().__init__(param_dict)
+        self.success_message = gui.utils.MessageWindow("success")
+
         #LOGDATE
         self.logdate_widget = QCalendarWidget()
 

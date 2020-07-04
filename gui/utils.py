@@ -1,6 +1,17 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
+class MessageWindow(QWindow):
+    def __init__(self, text):
+        super().__init__()
+        self.layout = QGridLayout()
+        self.widget = QWidget()
+        self.message = QLabel()
+        self.message.setText("text")
+        self.widget.setMinimumSize(20, 50)
+        self.layout.addWidget(self.message, 0, 0)
+
+
 class TableWindow(QWindow):
     def __init__(self, param):
         super().__init__()

@@ -1,12 +1,14 @@
-import sql_interface.interface as Table
+from sql_interface.interface import Table
 import datetime
 
-class calisthenics(Table):
+
+class Calisthenics(Table):
     """
     TODO(Oliver) add in specific functions here.
 
 
     """
+
     def __init__(self, param):
         super().__init__(param)
         self.table_name = "calisthenics"
@@ -48,7 +50,7 @@ class calisthenics(Table):
         sqlite_insert_str = \
             """INSERT INTO calisthenics values (?, ?, ?, ?, ?, ?)"""
 
-        cursor.execute(sqlite_insert_str, (write_data))
+        cursor.execute(sqlite_insert_str, write_data)
 
         open_connection.commit()
 

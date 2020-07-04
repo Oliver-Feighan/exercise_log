@@ -2,9 +2,10 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import gui.window_parameters as param
-import gui.run_input
+import gui.run_window
 import gui.calisthenic_window
 import sql_interface.runs
+import sql_interface.calisthenics
 
 class TableButton(QPushButton):
     def __init__(self, param):
@@ -31,16 +32,21 @@ class MasterWindow(QMainWindow):
 
 
 
-    def table_buttons(self, row : int, column : int, run_table : sql_interface.runs.Runs):
+    def table_buttons(self,
+                      row : int,
+                      column : int,
+                      run_table : sql_interface.runs.Runs,
+                      cali_table : sql_interface.calisthenics):
+
         self.layout.addWidget(QLabel("Input tables:"), row, column)
 
         self.run_button = TableButton({"text" : "Runs"})
-        self.run_window = gui.run_input.RunWindow({"table" : "Runs"}, run_table)
+        self.run_window = gui.run_window.RunWindow({"table" : "Runs"}, run_table)
         self.run_button.clicked.connect(self.run_window.clicked)
 
 
         self.calisthenics_button = TableButton({"text": "Calisthenics"})
-        self.calisthenics_window = gui.calisthenic_window.CalWindow({"table" : "Calisthenics"}, run_table)
+        self.calisthenics_window = gui.calisthenic_window.CalWindow({"table" : "Calisthenics"}, cali_table)
         self.calisthenics_button.clicked.connect(self.calisthenics_window.clicked)
 
 
@@ -61,7 +67,7 @@ class MasterWindow(QMainWindow):
 
 
 
-    def __init__(self, run_table):
+    def __init__(self, run_table, cali_table):
         super().__init__()
         self.win = QWidget()
         self.win.setWindowTitle("Exercise Log")
@@ -74,17 +80,10 @@ class MasterWindow(QMainWindow):
 
         self.layout.addWidget(self.text, 0, 0)
 
-        self.table_buttons(1, 0, run_table)
+        self.table_buttons(1, 0, run_table, cali_table)
 
         self.weekly_data_setup()
 
-        """
-        self.toolbar = QToolBar()
-        self.toolbar.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        self.layout.addWidget(self.toolbar, 1, 0)
-        self.toolbar.addAction("add")
-        self.toolbar.addAction("read")
-        """
         self.win.setFixedSize(param.master_window["width"], param.master_window["height"])
 
         self.win.show()
