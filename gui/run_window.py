@@ -1,13 +1,11 @@
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-import gui.utils
-import sql_interface.runs
-import gui.utils
-import datetime
+from gui.utils import *
+from datetime import *
 
-class RunWindow(gui.utils.TableWindow):
-    def add_to_table(self, run_table: sql_interface.runs) :
+class RunWindow(TableWindow):
+    def add_to_table(self, run_table) :
 
         date = self.logdate_widget.selectedDate().toString("yyyy-MM-dd")
         date = datetime.datetime.strptime(date, "%Y-%m-%d")
@@ -27,7 +25,7 @@ class RunWindow(gui.utils.TableWindow):
 
     def __init__(self, param_dict, run_table):
         super().__init__(param_dict)
-        self.success_message = gui.utils.MessageWindow("success")
+        self.success_message = MessageWindow("success")
 
         #LOGDATE
         self.logdate_widget = QCalendarWidget()

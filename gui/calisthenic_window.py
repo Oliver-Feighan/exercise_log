@@ -1,12 +1,10 @@
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-import gui.utils
+from gui.utils import *
+from datetime import *
 
-import datetime
-
-
-class CalWindow(gui.utils.TableWindow):
+class CalWindow(TableWindow):
 
     def add_to_table(self, cali_table):
         date = self.logdate_widget.selectedDate().toString("yyyy-MM-dd")
