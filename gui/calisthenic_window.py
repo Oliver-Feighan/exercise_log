@@ -8,7 +8,7 @@ class CalWindow(TableWindow):
 
     def add_to_table(self, cali_table):
         date = self.logdate_widget.selectedDate().toString("yyyy-MM-dd")
-        date = datetime.datetime.strptime(date, "%Y-%m-%d")
+        date = datetime.strptime(date, "%Y-%m-%d")
         date = date.date()
         pushups = self.pushups_slider.value()
         pullups = self.pullups_slider.value()

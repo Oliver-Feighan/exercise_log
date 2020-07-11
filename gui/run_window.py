@@ -8,7 +8,7 @@ class RunWindow(TableWindow):
     def add_to_table(self, run_table) :
 
         date = self.logdate_widget.selectedDate().toString("yyyy-MM-dd")
-        date = datetime.datetime.strptime(date, "%Y-%m-%d")
+        date = datetime.strptime(date, "%Y-%m-%d")
         date = date.date()
         distance = self.distance.text()
         elavation = self.elavation_box.text()
