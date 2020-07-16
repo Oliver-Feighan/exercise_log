@@ -1,8 +1,6 @@
 # exercise log
 GUI for keeping track of exercise - links to an sqlite database file
 
-# DO NOT RUN WITH PYTHON 3.7 AND MAC <BR/> THIS WILL HARD CRASH YOUR COMPUTER
-
 ## general notes
 
 due to free access of jetbrains, I'm developing this in pycharm. Turns out pycharm has great tools for reading
